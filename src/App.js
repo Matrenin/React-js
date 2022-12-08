@@ -1,68 +1,51 @@
-import { useState } from 'react';
-import { Message } from './components/func/Message';
-import styles from './components/func/Form.module.css';
+import { useState, useEffect } from 'react'
+import './components/func/Form.css'
 
-function App() {
-  const [text, setText] = useState('');
-  const [message, setMessage] = useState('');
-  const [timeMessage, setTime] = useState('');
+export default function App () {
+  const [messageList, setMessageList] = useState([])
+  const [message, setMessage] = useState('')
+  const [toggle, setToggle] = useState(false)
 
   const handleChange = (event) => {
-    setText(event.target.value);
+    setMessage(event.target.value)
   }
 
   const handleClick = () => {
-    let date = new Date();
-    let hours = date.getHours();
-    let minutes = date.getMinutes();
-    if (hours < 10) {
-      hours = '0' + hours;
+    if (message === '') {
+      return
     }
-    if (minutes < 10) {
-      minutes = '0' + minutes;
-    }
-    let time = {hours, minutes};
-    setTime(time);
-    setMessage(text);
+    const obj = {author: 'Roman', text: message}
+    setMessageList([...messageList, obj])
   }
+
+  useEffect(() => {
+    messageList.forEach(el => {
+      if (el.author === 'Roman') {
+        setTimeout(() => {
+          setToggle(true)
+        }, 1500)
+      }
+    })
+  }, [messageList])
 
   return (
     <>
-      <div className={styles.box}>
-        <div className={styles.messageArea}>
-          {message ? <Message message={message} timeMessage={timeMessage}/> : ''}
+      <div className="box">
+        <h2 className="title">Добро пожаловать</h2>
+        <div className="message-area">
+        <div>{messageList.text}</div>
+          <div>{messageList.map((el, index) => (
+            <div className="messageDesc">
+              <div key={index}>{el.author}: 
+                <span className="newMessage" key={index}>{el.text}</span>
+              </div>
+              <p className="robot-text">{toggle ? 'Ваше обращение принято в обработку' : ''}</p>
+            </div>
+          ))}</div>
         </div>
-        <input
-          type="text"
-          className={styles.writeArea}
-          onChange={handleChange}
-          placeholder="Write message..."
-        />
-        <button className={styles.btnSend} onClick={handleClick}>Send</button>
+        <input type="text" className="text-area" placeholder="Write message..." onChange={handleChange}/>
+        <button className="send-btn" onClick={handleClick}>Send</button>
       </div>
     </>
   )
 }
-
-// function App() {
-//   const [toggle, setToggle] = useState(true);
-//   const [arr] = useState([
-//     {name: 'Aslan'},
-//     {name: 'Tagir'},
-//     {name: 'Goga'}
-//   ]);
-
-//   return (
-//     <>
-//       <button onClick={() => setToggle(!toggle)}>{toggle ? 'Hide' : 'Show'}</button>
-//       <ul>
-//         {arr.map((item, index) => (
-//           <li key={index}>{item.name}</li>
-//         ))}
-//       </ul>
-//       {toggle && <NewForm name='Pepe Silvia' age='31' arr={arr}/>}
-//     </>
-//   )
-// }
-
-export default App;

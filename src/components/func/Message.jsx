@@ -1,16 +1,15 @@
-import styles from './Form.module.css';
+import './Form.css'
+// import { useState, useEffect } from 'react'
 
-export function Message(props) {
+export default function Message(props) {
 
   return (
     <>
-      <div className={styles.message}>
-        <p>Author: </p>
-        <div className={styles.messageDesc}>
-          <p>{props.message}</p>
-          <div className={styles.time}>{props.timeMessage.hours}:{props.timeMessage.minutes}</div>
+      <div>{props.messageList.map((el, index) => (
+        <div className="messageDesc" key={index}>{el.author}: 
+          <span className="newMessage" key={index}>{el.text}</span>   
         </div>
-      </div>
+      ))}</div>
     </>
   )
 }
