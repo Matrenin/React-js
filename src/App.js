@@ -1,51 +1,46 @@
+import MessageList from './components/MessageList/MessageList'
+import Form from './components/Form/Form'
+import './App.css'
 import { useState, useEffect } from 'react'
-import './components/func/Form.css'
+import Chats from './components/Chats/Chats'
 
-export default function App () {
-  const [messageList, setMessageList] = useState([])
-  const [message, setMessage] = useState('')
-  const [toggle, setToggle] = useState(false)
+export default function App() {
+  const [messages, setMessages] = useState([])
+  const [chats, setChats] = useState([])
 
-  const handleChange = (event) => {
-    setMessage(event.target.value)
-  }
-
-  const handleClick = () => {
-    if (message === '') {
+  const addMessage = (newMessage) => {
+    if (newMessage.text === '') {
       return
     }
-    const obj = {author: 'Roman', text: message}
-    setMessageList([...messageList, obj])
+    setMessages([...messages, newMessage])
   }
 
   useEffect(() => {
-    messageList.forEach(el => {
-      if (el.author === 'Roman') {
-        setTimeout(() => {
-          setToggle(true)
-        }, 1500)
+    setChats([
+      {id: 1, name: 'Games'},
+      {id: 2, name: "Films"}
+    ])
+    if (messages.length > 0 && messages[messages.length - 1].author === 'user') {
+      const timeout = setTimeout(() => {
+        addMessage({
+          author: 'bot',
+          text: 'Im bot'
+        })
+      }, 1500)
+      return () => {
+        clearTimeout(timeout)
       }
-    })
-  }, [messageList])
+    }
+  }, [messages])
 
   return (
-    <>
-      <div className="box">
-        <h2 className="title">Добро пожаловать</h2>
-        <div className="message-area">
-        <div>{messageList.text}</div>
-          <div>{messageList.map((el, index) => (
-            <div className="messageDesc">
-              <div key={index}>{el.author}: 
-                <span className="newMessage" key={index}>{el.text}</span>
-              </div>
-              <p className="robot-text">{toggle ? 'Ваше обращение принято в обработку' : ''}</p>
-            </div>
-          ))}</div>
-        </div>
-        <input type="text" className="text-area" placeholder="Write message..." onChange={handleChange}/>
-        <button className="send-btn" onClick={handleClick}>Send</button>
+    <div className="box">
+      <h2 className="title">Добро пожаловать</h2>
+      <Form addMessage={addMessage}/>
+      <div className="list">
+        <Chats chats={chats}/>
+        <MessageList messages={messages}/>
       </div>
-    </>
+    </div>
   )
 }
