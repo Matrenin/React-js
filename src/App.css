@@ -1,0 +1,20 @@
+.box {
+  max-width: 900px;
+  width: 100%;
+  margin: 60px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  color: #f60;
+}
+
+.list {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+  margin: 0 20px;
+}
