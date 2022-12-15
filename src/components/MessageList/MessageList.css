@@ -4,6 +4,6 @@
   align-items: flex-start;
 }
 
-ul {
+.messageList-box ul {
   margin-top: 20px;
 }
