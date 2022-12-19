@@ -1,0 +1,18 @@
+.profile {
+  max-width: 1200px;
+  width: 100%;
+  margin: 40px auto;
+}
+
+.profile h2  {
+  text-align: center;
+}
+
+.profile__user {
+  display: block;
+  margin: 20px 0;
+}
+
+.profile h4 {
+  margin: 20px 0;
+}

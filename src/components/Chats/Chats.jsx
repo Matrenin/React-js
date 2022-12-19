@@ -7,7 +7,7 @@ import IButton from '@mui/material/Button';
 import ITextField from '@mui/material/TextField';
 import { ThemeProvider } from '@mui/material/styles';
 
-export default function Chats({ addChat, chats }) {
+export default function Chats({ addChat, chats, deleteChat }) {
   const [value, setValue] = useState('')
 
   const handleSubmit = (event) => {
