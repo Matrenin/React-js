@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import Chats from '../components/Chats/Chats'
 import { useParams, Navigate } from 'react-router-dom'
 
-export default function ChatsPage({ addChat, onAddMessage, messages, chats }) {
+export default function ChatsPage({ addChat, onAddMessage, messages, chats, }) {
   const { chatId } = useParams()
 
   useEffect(() => {

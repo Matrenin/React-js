@@ -1,7 +1,7 @@
 .chats {
   max-width: 900px;
   width: 100%;
-  margin: 60px auto;
+  margin: 0px auto;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -6,6 +6,9 @@ import ChatsPage from './pages/ChatsPage'
 import Chats from './components/Chats/Chats'
 import { useState } from 'react'
 import { nanoid } from 'nanoid'
+import { defaultContext, ThemeContext } from './utils/ThemeContext'
+import { Provider } from 'react-redux'
+import { store } from './store/index'
 
 const defaultMessage = {
   default: [
@@ -22,6 +25,7 @@ const defaultMessage = {
 
 export default function App() {
   const [messages, setMessages] = useState(defaultMessage)
+  const [theme, setTheme] = useState(defaultContext.theme)
 
   const chats = Object.keys(messages).map(chat => ({
     id: nanoid(),
@@ -32,7 +36,6 @@ export default function App() {
     if (newChat.name === '') {
       return
     }
-    console.log(newChat)
     setMessages({
       ...messages,
       [newChat.name]: []
@@ -46,28 +49,38 @@ export default function App() {
     })
   }
 
+  const toggleTheme = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light')
+  }
+
   return (
     <>
-      {/* <Header/> */}
-      <Routes>
-        <Route path="/" element={<Header/>}>
-          <Route index element={<MainPage/>}></Route>
-          <Route path="profile" element={<ProfilePage/>}></Route>
-          <Route path="chats">
-            <Route index element={<Chats chats={chats} addChat={addChat}/>}></Route>
-            <Route
-              path=":chatId"
-              element={<ChatsPage
-              chats={chats}
-              messages={messages}
-              onAddMessage={onAddMessage}
-              addChat={addChat}/>}
-            ></Route>
-          </Route>
-        </Route>
+      <Provider store={store}>
+        <ThemeContext.Provider value={{
+          theme,
+          toggleTheme
+        }}>
+          <Routes>
+            <Route path="/" element={<Header/>}>
+              <Route index element={<MainPage/>}></Route>
+              <Route path="profile" element={<ProfilePage/>}></Route>
+              <Route path="chats">
+                <Route index element={<Chats chats={chats} addChat={addChat}/>}></Route>
+                <Route
+                  path=":chatId"
+                  element={<ChatsPage
+                  chats={chats}
+                  messages={messages}
+                  onAddMessage={onAddMessage}
+                  addChat={addChat}/>}
+                ></Route>
+              </Route>
+            </Route>
 
-        <Route path="*" element={<h2>404 Page not Found</h2>}></Route>
-      </Routes>
+            <Route path="*" element={<h2>404 Page not Found</h2>}></Route>
+          </Routes>
+        </ThemeContext.Provider>
+      </Provider>
     </>
   )
 }
