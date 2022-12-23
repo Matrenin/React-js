@@ -4,41 +4,24 @@ import '../App.css'
 import { useState, useEffect } from 'react'
 import Chats from '../components/Chats/Chats'
 import { useParams, Navigate } from 'react-router-dom'
+import { selectMessage } from '../store/messages/selectors'
+import { useSelector } from 'react-redux'
 
-export default function ChatsPage({ addChat, onAddMessage, messages, chats, }) {
+export default function ChatsPage() {
   const { chatId } = useParams()
-
-  useEffect(() => {
-    if (chatId && messages[chatId].length > 0 && messages[chatId][messages[chatId].length - 1].author === 'user') {
-      const timeout = setTimeout(() => {
-        onAddMessage(chatId, {
-          author: 'bot',
-          text: 'Im bot'
-        })
-      }, 1500)
-      return () => {
-        clearTimeout(timeout)
-      }
-    }
-  }, [chatId, messages])
-
-  const handleAddMessage = (message) => {
-    if (chatId) {
-      onAddMessage(chatId, message)
-    }
-  }
-
+  const messages = useSelector(selectMessage)
+  
   if (chatId && !messages[chatId]) {
     return <Navigate to="/chats" />
   }
 
   return (
     <div className="box">
-      <Chats chats={chats} addChat={addChat}/>
+      <Chats/>
       <div className="list">
-        <Form addMessage={handleAddMessage}/>
-        <MessageList messages={chatId ? messages[chatId] : []}/>
+        <MessageList messages={chatId ? messages[chatId] : []} chatId={chatId}/>
       </div>
+      <Form/>
     </div>
   )
 }

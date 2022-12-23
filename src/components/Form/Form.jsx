@@ -3,6 +3,9 @@ import { useState, useEffect, useRef } from 'react'
 import IButton from '@mui/material/Button';
 import ITextField from '@mui/material/TextField';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useDispatch } from 'react-redux'
+import { addMessages } from '../../store/messages/actions'
+import { useParams } from 'react-router-dom'
 
 export const theme = createTheme({
   palette: {
@@ -15,16 +18,16 @@ export const theme = createTheme({
   },
 });
 
-export default function Form({ addMessage }) {
+export default function Form() {
   const [text, setText] = useState('')
   const inputRef = useRef()
+  const dispatch = useDispatch()
+  const { chatId } = useParams()
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    addMessage({
-      author: 'user',
-      text
-    })
+    dispatch(addMessages(chatId, text))
+    setText('')
   }
 
   useEffect(() => {
@@ -43,6 +46,7 @@ export default function Form({ addMessage }) {
           color="primary"
           size="small"
           ref={inputRef}
+          value={text}
         />
         <IButton
           variant="contained"
