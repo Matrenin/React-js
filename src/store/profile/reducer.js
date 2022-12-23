@@ -2,7 +2,7 @@ import * as types from './types'
 
 const initialState = {
   name: 'Shvonder',
-  admin: false
+  visible: true
 }
 
 export const profileReduser = (state = initialState, action) => {
@@ -13,10 +13,10 @@ export const profileReduser = (state = initialState, action) => {
         ...state,
         name: value
       }
-    case types.CHANGE_USER:
+    case types.TOGGLE_PROFILE:
       return {
         ...state,
-        admin: value
+        visible: !state.visible
       }
     default:
       return state

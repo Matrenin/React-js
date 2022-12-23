@@ -1,21 +1,23 @@
 import './Chats.css'
 import { useState } from 'react'
-import { nanoid } from 'nanoid'
 import { Link } from 'react-router-dom'
 import { theme } from '../Form/Form'
 import IButton from '@mui/material/Button';
 import ITextField from '@mui/material/TextField';
 import { ThemeProvider } from '@mui/material/styles';
+import { useDispatch, useSelector } from 'react-redux'
+import { addChat, deleteChat } from '../../store/messages/actions'
+import { selectChat } from '../../store/messages/selectors'
 
-export default function Chats({ addChat, chats, deleteChat }) {
+export default function Chats() {
   const [value, setValue] = useState('')
+  const dispatch = useDispatch()
+  const chats = useSelector(selectChat, (prev, next) => prev.length === next.length)
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    addChat({
-      id: nanoid(),
-      name: value
-    })
+    dispatch(addChat(value))
+    setValue('')
   }
 
   return (
@@ -27,6 +29,7 @@ export default function Chats({ addChat, chats, deleteChat }) {
             <Link to={`/chats/${chat.name}`}>
               {chat.name}
             </Link>
+            <button onClick={() => dispatch(deleteChat(chat.name))}>delete</button>
           </li>
         ))}
       </ul>
