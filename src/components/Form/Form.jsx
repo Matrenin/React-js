@@ -4,7 +4,7 @@ import IButton from '@mui/material/Button';
 import ITextField from '@mui/material/TextField';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useDispatch } from 'react-redux'
-import { addMessages } from '../../store/messages/actions'
+import { addMessages, addMessageWithReply } from '../../store/messages/actions'
 import { useParams } from 'react-router-dom'
 
 export const theme = createTheme({
@@ -26,7 +26,10 @@ export default function Form() {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    dispatch(addMessages(chatId, text))
+    dispatch(addMessageWithReply(chatId, {
+      author: 'user',
+      text
+    }))
     setText('')
   }
 
