@@ -2,7 +2,6 @@ import { useContext, useState } from 'react'
 import { ThemeContext } from '../utils/ThemeContext'
 import { useSelector, useDispatch } from 'react-redux'
 import './style/profile.css'
-// import * as types from '../store/profile/types'
 import { selectName, selectVisible } from '../store/profile/selectors'
 import { changeName, toggleProfile } from '../store/profile/actions'
 
@@ -14,13 +13,13 @@ export default function ProfilePage() {
 
   const dispatch = useDispatch()
 
-  const handleChange = () => {
-    if (value === '') {
-      return
-    }
-    dispatch(changeName(value))
-    setValue('')
-  }
+  // const handleChange = () => {
+  //   if (value === '') {
+  //     return
+  //   }
+  //   dispatch(changeName(value))
+  //   setValue('')
+  // }
 
   return (
     <div className="profile">
@@ -33,7 +32,7 @@ export default function ProfilePage() {
         <button onClick={() => dispatch(toggleProfile())}>change visible</button>
       </div>
       <input type="text" value={value} onChange={event => setValue(event.target.value)}/>
-      <button onClick={handleChange}>Change name</button>
+      <button onClick={() => dispatch(changeName(value))}>Change name</button>
     </div>
   )
 }
