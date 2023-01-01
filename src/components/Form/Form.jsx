@@ -6,6 +6,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useDispatch } from 'react-redux'
 import { addMessages, addMessageWithReply } from '../../store/messages/actions'
 import { useParams } from 'react-router-dom'
+import { getMessageListById } from '../../services/firebase'
+import { push } from "firebase/database"
 
 export const theme = createTheme({
   palette: {
@@ -30,6 +32,10 @@ export default function Form() {
       author: 'user',
       text
     }))
+    push(getMessageListById(chatId), {
+      author: 'user',
+      text
+    })
     setText('')
   }
 
