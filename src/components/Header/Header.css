@@ -1,6 +1,8 @@
 .header {
   background: #FEE9DB;
   padding: 20px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
 .header ul {
@@ -8,4 +10,19 @@
   justify-content: center;
   gap: 30px;
   align-items: center;
+}
+
+.header__login {
+  margin-left: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.header__login button {
+  background: #f60;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin: 0 10px;
 }

@@ -8,8 +8,10 @@ import { ThemeProvider } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux'
 import { addChat, deleteChat } from '../../store/messages/actions'
 import { selectChat } from '../../store/messages/selectors'
+import { messagesRef } from '../../services/firebase'
+import { push, set, remove } from "firebase/database"
 
-export default function Chats() {
+export default function Chats({ messageDB }) {
   const [value, setValue] = useState('')
   const dispatch = useDispatch()
   const chats = useSelector(selectChat, (prev, next) => prev.length === next.length)
@@ -17,6 +19,12 @@ export default function Chats() {
   const handleSubmit = (event) => {
     event.preventDefault()
     dispatch(addChat(value))
+    set(messagesRef, {
+      ...messageDB,
+      [value]: {
+        name: value
+      }
+    })
     setValue('')
   }
 

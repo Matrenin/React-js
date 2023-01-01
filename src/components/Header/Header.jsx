@@ -1,7 +1,11 @@
 import { Outlet, NavLink } from 'react-router-dom'
 import './Header.css'
+// import { selectAuth, selectName } from '../../store/profile/selectors'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { logOut } from '../../services/firebase'
 
-export const navigate = [
+export const navigates = [
   {
     id: 1,
     name: 'Main',
@@ -26,26 +30,57 @@ export const navigate = [
     id: 5,
     name: 'Articles',
     to: '/articles'
-  },
-  {
-    id: 6,
-    name: 'SingIn',
-    to: '/singin'
-  },
-  {
-    id: 7,
-    name: 'SingUp',
-    to: '/singup'
   }
+  // {
+  //   id: 6,
+  //   name: 'SignIn',
+  //   to: '/signin'
+  // },
+  // {
+  //   id: 7,
+  //   name: 'SignUp',
+  //   to: '/signup'
+  // }
 ]
 
 export default function Header() {
+  const name = useSelector((store) => store.profile.name)
+  const isAuth = useSelector((store => store.profile.isAuth))
+  const navigate = useNavigate()
+
+
+  const handleLogin = () => {
+    navigate('/signin')
+  }
+
+  const handleSignUp = () => {
+    navigate('/signup')
+  }
+
+  const handleLogOut = async () => {
+    await logOut()
+  }
+
   return (
     <>
       <header>
         <nav className="header">
+          <div className="header__login">
+            {!isAuth && (
+              <>
+                <button onClick={handleLogin}>Login</button>
+                <button onClick={handleSignUp}>Sign up</button>
+              </>
+            )}
+            {isAuth && (
+              <>
+                <button onClick={handleLogOut}>Log out</button>
+                <p>User: {name}</p>
+              </>
+            )}
+          </div>
           <ul>
-            {navigate.map(link => (
+            {navigates.map(link => (
               <li key={link.id}>
                 <NavLink
                   to={link.to}
