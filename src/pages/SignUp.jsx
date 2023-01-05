@@ -33,20 +33,22 @@ export function SignUp() {
     <>
       <h3>SingUp</h3>
       <form onSubmit={handleSubmit}>
-        <p>Email: </p>
-        <input
-          type="text"
-          value={inputs.email}
-          name="email"
-          onChange={(e) => setInputs((prev) => ({...prev, [e.target.name]: e.target.value}))}
-        />
-        <p>Password: </p>
-        <input
-          type="text"
-          value={inputs.password}
-          name="password"
-          onChange={(e) => setInputs((prev) => ({...prev, [e.target.name]: e.target.value}))}
-        />
+        <label>Email: 
+          <input
+            type="text"
+            value={inputs.email}
+            name="email"
+            onChange={(e) => setInputs((prev) => ({...prev, [e.target.name]: e.target.value}))}
+          />
+        </label>
+        <label>Password: 
+          <input
+            type="text"
+            value={inputs.password}
+            name="password"
+            onChange={(e) => setInputs((prev) => ({...prev, [e.target.name]: e.target.value}))}
+          />
+        </label>
         <button>Sign up</button>
       </form>
       { loading && (

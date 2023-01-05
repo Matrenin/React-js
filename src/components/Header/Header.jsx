@@ -1,6 +1,5 @@
 import { Outlet, NavLink } from 'react-router-dom'
 import './Header.css'
-// import { selectAuth, selectName } from '../../store/profile/selectors'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { logOut } from '../../services/firebase'
@@ -31,16 +30,6 @@ export const navigates = [
     name: 'Articles',
     to: '/articles'
   }
-  // {
-  //   id: 6,
-  //   name: 'SignIn',
-  //   to: '/signin'
-  // },
-  // {
-  //   id: 7,
-  //   name: 'SignUp',
-  //   to: '/signup'
-  // }
 ]
 
 export default function Header() {
