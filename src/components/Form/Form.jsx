@@ -4,7 +4,7 @@ import IButton from '@mui/material/Button';
 import ITextField from '@mui/material/TextField';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useDispatch } from 'react-redux'
-import { addMessages, addMessageWithReply } from '../../store/messages/actions'
+import { addMessageWithReply } from '../../store/messages/actions'
 import { useParams } from 'react-router-dom'
 import { getMessageListById } from '../../services/firebase'
 import { push } from "firebase/database"
@@ -28,6 +28,9 @@ export default function Form() {
 
   const handleSubmit = (event) => {
     event.preventDefault()
+    if (text === "") {
+      return
+    }
     dispatch(addMessageWithReply(chatId, {
       author: 'user',
       text

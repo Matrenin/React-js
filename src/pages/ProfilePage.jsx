@@ -13,13 +13,12 @@ export default function ProfilePage() {
 
   const dispatch = useDispatch()
 
-  // const handleChange = () => {
-  //   if (value === '') {
-  //     return
-  //   }
-  //   dispatch(changeName(value))
-  //   setValue('')
-  // }
+  const handleClick = () => {
+    if (value === '') {
+      return
+    }
+    dispatch(changeName(value))
+  }
 
   return (
     <div className="profile">
@@ -32,7 +31,7 @@ export default function ProfilePage() {
         <button onClick={() => dispatch(toggleProfile())}>change visible</button>
       </div>
       <input type="text" value={value} onChange={event => setValue(event.target.value)}/>
-      <button onClick={() => dispatch(changeName(value))}>Change name</button>
+      <button onClick={handleClick}>Change name</button>
     </div>
   )
 }

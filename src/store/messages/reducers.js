@@ -1,6 +1,6 @@
 import { ADD_CHAT, DELETE_CHAT, ADD_MESSAGE } from './actions'
 
-const inintialState = {
+export const initialState = {
   default: [
     {
       author: 'user',
@@ -13,7 +13,7 @@ const inintialState = {
   ]
 }
 
-export const messagesReducer = (state = inintialState, action) => {
+export const messagesReducer = (state = initialState, action) => {
   const { type, value} = action
   switch (type) {
     case ADD_CHAT: 

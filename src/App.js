@@ -5,7 +5,6 @@ import ProfilePage from './pages/ProfilePage'
 import ChatsPage from './pages/ChatsPage'
 import Chats from './components/Chats/Chats'
 import { useEffect, useState } from 'react'
-// import { nanoid } from 'nanoid'
 import { defaultContext, ThemeContext } from './utils/ThemeContext'
 import { useDispatch } from 'react-redux'
 import { persistor } from './store/index'
@@ -65,14 +64,6 @@ export default function App() {
               <Route index element={<MainPage/>}></Route>
               <Route path="profile" element={<ProfilePage/>}></Route>
               <Route path="about" element={<AboutWithConnect/>}></Route>
-              {/* <Route path="chats">
-                <Route index element={<Chats/>}></Route>
-                <Route
-                  path=":chatId"
-                  element={<ChatsPage
-                  />}
-                ></Route>
-              </Route> */}
               <Route path="chats" element={<PriviteRoute/>}>
                 <Route
                   index
